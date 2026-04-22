@@ -1,0 +1,45 @@
+# VLSI Circuit Netlist - 4-bit Adder Example
+# Format:
+#   GATE  <type> <name> drive=<int> area=<float_um2> power=<float_uW>
+#   NET   <name> <src_gate> <dst_gate1> [dst_gate2 ...]
+
+# ------- Combinational Logic -------
+GATE NAND2  g_nand1   drive=1  area=1.44  power=2.10
+GATE NAND2  g_nand2   drive=2  area=2.16  power=3.20
+GATE NOR2   g_nor1    drive=1  area=1.44  power=1.80
+GATE NOR2   g_nor2    drive=2  area=2.16  power=2.50
+GATE AND2   g_and1    drive=1  area=1.80  power=2.40
+GATE AND2   g_and2    drive=2  area=2.52  power=3.10
+GATE OR2    g_or1     drive=1  area=1.80  power=2.30
+GATE OR2    g_or2     drive=2  area=2.52  power=3.00
+GATE XOR2   g_xor1    drive=1  area=2.88  power=3.80
+GATE XOR2   g_xor2    drive=1  area=2.88  power=3.80
+GATE XOR2   g_xor3    drive=2  area=3.60  power=4.50
+GATE INV    g_inv1    drive=1  area=0.72  power=0.90
+GATE INV    g_inv2    drive=4  area=1.44  power=1.50
+GATE BUF    g_buf1    drive=8  area=1.44  power=1.20
+GATE BUF    g_buf2    drive=8  area=1.44  power=1.20
+
+# ------- Sequential Logic -------
+GATE DFF    ff_a      drive=2  area=5.40  power=8.20
+GATE DFF    ff_b      drive=2  area=5.40  power=8.20
+GATE DFF    ff_sum    drive=2  area=5.40  power=8.20
+GATE DFF    ff_carry  drive=2  area=5.40  power=8.20
+
+# ------- Connections -------
+NET n_a1       ff_a      g_xor1 g_and1
+NET n_b1       ff_b      g_xor1 g_and1
+NET n_sum1     g_xor1    ff_sum
+NET n_carry1   g_and1    g_or1
+NET n_xor2_in  g_xor2    g_nor1
+NET n_and2_in  g_and2    g_or1
+NET n_carry2   g_or1     ff_carry g_nand1
+NET n_inv1     g_inv1    g_nand2
+NET n_inv2     g_inv2    g_nor2
+NET n_buf_clk  g_buf1    ff_a ff_b ff_sum ff_carry
+NET n_buf_data g_buf2    g_xor3 g_and2
+NET n_xor3     g_xor3    g_nand1
+NET n_nand1    g_nand1   g_nor1
+NET n_nand2    g_nand2   g_nor2
+NET n_nor1     g_nor1    ff_sum
+NET n_nor2     g_nor2    ff_carry

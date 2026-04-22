@@ -1,0 +1,38 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+.coverage
+htmlcov/
+
+# C++ build artifacts
+parser/circuit_parser
+parser/sta_engine
+
+# Generated output (reports, floorplans) — root-level only, not examples/output/
+/output/
+
+# Temp files from Verilog conversion
+vlsi_*.txt
+vlsi_yosys_*/
+
+# Claude Code
+.claude/
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment / secrets
+.env
+*.env
