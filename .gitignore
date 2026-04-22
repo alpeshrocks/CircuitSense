@@ -36,3 +36,8 @@ vlsi_yosys_*/
 # Environment / secrets
 .env
 *.env
+
+# Coverage
+.coverage
+coverage.xml
+htmlcov/
