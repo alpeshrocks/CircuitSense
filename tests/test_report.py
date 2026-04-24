@@ -1,4 +1,26 @@
-"""Tests for the HTML report generator."""
+"""
+tests/test_report.py — Unit tests for vlsi/report.py
+=====================================================
+WHAT IS TESTED:
+    generate_report() — produces a self-contained HTML file from mock data.
+
+    Tests use MOCK_STATS and MOCK_TIMING dicts (not real C++ binary output)
+    so they run without compiling C++ and are fully deterministic.
+
+CHECKS:
+    - Output file is created at the specified path
+    - File size exceeds 5 KB (ensures charts were embedded as base64 PNG)
+    - HTML contains expected section headings (PPA Summary, Critical Path, etc.)
+    - At least one base64 PNG data URI is embedded (charts rendered)
+    - PASS badge appears when timing_met=True
+    - FAIL badge appears when timing_met=False
+    - LLM suggestions section appears when suggestions text is provided
+    - LLM section is absent when suggestions=None
+
+MOCK DATA:
+    MOCK_STATS — 5-gate circuit: 2× NAND2, 2× XOR2, 1× DFF
+    MOCK_TIMING — 2-gate critical path (g1 → g2), timing PASS, WNS = 9.44 ns
+"""
 
 import os
 import pytest

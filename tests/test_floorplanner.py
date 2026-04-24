@@ -1,4 +1,24 @@
-"""Tests for the Python floorplanner."""
+"""
+tests/test_floorplanner.py — Unit tests for vlsi/floorplanner.py
+================================================================
+WHAT IS TESTED:
+    place_gates()        — coordinate assignment for a set of sample gates
+    render_floorplan()   — PNG file creation from placed gates
+    run_floorplan()      — end-to-end convenience wrapper using parser stats
+
+PLACEMENT INVARIANTS VERIFIED:
+    - All input gates appear in the output (no gates dropped)
+    - Every placed gate has x, y, w, h fields
+    - No gate has negative coordinates (all placed in positive quadrant)
+    - Placed cell area (w * h) matches original area within floating-point tolerance
+    - Output PNG file is created and has non-trivial size (> 1 KB)
+    - Empty input returns empty output without error
+    - Single gate placed at origin (0, 0)
+
+SAMPLE GATES:
+    5 gates covering NAND2, XOR2, DFF, INV, OR2 — a representative mix
+    that exercises the sort_key prioritisation in place_gates().
+"""
 
 import os
 import pytest

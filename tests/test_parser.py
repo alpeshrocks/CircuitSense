@@ -1,4 +1,26 @@
-"""Tests for the C++ circuit_parser binary."""
+"""
+tests/test_parser.py — Unit tests for the C++ circuit_parser binary
+====================================================================
+WHAT IS TESTED:
+    The circuit_parser binary (parser/circuit_parser) is an external process.
+    Tests invoke it via subprocess and validate:
+      - Binary exists (i.e. 'make -C parser' was run)
+      - Output is valid JSON
+      - Gate counts match the known sample_circuit.txt layout (19 gates)
+      - Sequential / combinational split is correct (4 DFFs, 15 comb)
+      - Area and power totals match hand-calculated values
+      - Power density is positive (sanity check)
+      - Per-type counts include DFF with count 4
+      - "gates" list is present and matches total_gates
+      - Fanout statistics are non-zero and consistent
+      - Non-existent file input returns non-zero exit code
+
+SAMPLE CIRCUIT (sample_circuit.txt):
+    19 gates total: 4× DFF, 3× XOR2, 2× AND2, 2× OR2, 2× NAND2,
+                    2× NOR2, 2× BUF, 2× INV
+    Total area : 51.84 um²
+    Total power: 70.10 uW
+"""
 
 import json
 import subprocess

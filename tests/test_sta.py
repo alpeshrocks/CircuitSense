@@ -1,4 +1,24 @@
-"""Tests for the C++ STA engine."""
+"""
+tests/test_sta.py — Unit tests for the C++ sta_engine binary
+=============================================================
+WHAT IS TESTED:
+    The sta_engine binary (parser/sta_engine) is tested via subprocess.
+    Tests validate:
+      - Binary exists after 'make -C parser'
+      - Output is valid JSON
+      - All required timing keys are present in the output
+      - Critical path is non-empty and delay is positive
+      - Max frequency is a positive non-zero value
+      - Timing is PASS with a generous 100 ns period
+      - Timing is FAIL with a 0.001 ns (near-zero) period
+      - Every gate in the netlist appears in gate_timing list
+      - slack = required - arrival holds for every gate (STA math check)
+
+STA CORRECTNESS CHECK:
+    The test test_slack_equals_rat_minus_at() verifies the fundamental
+    STA invariant: slack[g] = RAT[g] - AT[g] for all gates.
+    This validates the backward-pass implementation in sta_engine.cpp.
+"""
 
 import json
 import subprocess
